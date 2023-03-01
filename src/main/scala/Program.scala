@@ -13,6 +13,7 @@ def main() = {
   //     val one  = '1'
   //     etc.
   //
+ 
 
   val zero = Character('0')
   val one = Character('1')
@@ -36,6 +37,8 @@ def main() = {
   require(eight matches "8")
   require(nine matches "9")
 
+  given Conversion[Char, RegularLanguage] = n => Character(n)
+
   //////////////////////////////////////////////////////////////////////////////
   // Part 2
   //////////////////////////////////////////////////////////////////////////////
@@ -44,8 +47,10 @@ def main() = {
   //
   //     val answer = "42"
   //
-
+  
   val answer = Concat(four, two)
+
+  given Conversion[String, Character] = n => n.toCharArray().foldRight(Concat(Character(_), Character(_)))
 
   require(answer matches "42")
 
