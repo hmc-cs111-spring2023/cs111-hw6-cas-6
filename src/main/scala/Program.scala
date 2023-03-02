@@ -1,5 +1,6 @@
 import machines.regex._
 import machines.given
+import machines._
 
 @main
 def main() = {
@@ -61,10 +62,6 @@ def main() = {
   //
     // parsing interface
   
-  extension(pre: RegularLanguage)
-    def ||(post: RegularLanguage): RegularLanguage = Union(pre, post)
-    def ~(post: RegularLanguage): RegularLanguage = Concat(pre, post)
-    def <*> : RegularLanguage = Star(pre)
 
   val digit = Union(
     zero,
