@@ -1,4 +1,5 @@
 import machines.regex._
+import machines.given
 
 @main
 def main() = {
@@ -37,8 +38,6 @@ def main() = {
   require(eight matches "8")
   require(nine matches "9")
 
-  given Conversion[Char, RegularLanguage] = n => Character(n)
-
   //////////////////////////////////////////////////////////////////////////////
   // Part 2
   //////////////////////////////////////////////////////////////////////////////
@@ -50,8 +49,6 @@ def main() = {
   
   val answer = Concat(four, two)
 
-  given Conversion[String, Character] = n => n.toCharArray().foldRight(Concat(Character(_), Character(_)))
-
   require(answer matches "42")
 
   //////////////////////////////////////////////////////////////////////////////
@@ -62,6 +59,12 @@ def main() = {
   //
   //    val digit = '0' || '1' || '2' || '3' || '4' || '5' || '6' || '7' || '8' || '9'
   //
+    // parsing interface
+  
+  extension(pre: RegularLanguage)
+    def ||(post: RegularLanguage): RegularLanguage = Union(pre, post)
+    def ~(post: RegularLanguage): RegularLanguage = Concat(pre, post)
+    def <*> : RegularLanguage = Star(pre)
 
   val digit = Union(
     zero,
